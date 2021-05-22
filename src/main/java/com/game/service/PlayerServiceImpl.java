@@ -48,7 +48,7 @@ public class PlayerServiceImpl implements PlayerService{
         if(player.getBanned()!=null) updatedPlayer.setBanned(player.getBanned());
         if(player.getExperience()!=null) updatedPlayer.setExperience(player.getExperience());
         calcLvl(updatedPlayer);
-        return playerRepository.save(updatedPlayer);
+        return playerRepository.saveAndFlush(updatedPlayer);
     }
 
     @Override
