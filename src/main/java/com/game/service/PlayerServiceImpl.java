@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -119,10 +120,12 @@ public class PlayerServiceImpl implements PlayerService{
                 throw new WrongParamsException("Invalid Player`s experience");
             }
         }
-        Date playersDate = player.getBirthday();
-        if(playersDate!=null) {
-            if (playersDate.getYear() < 2000 || playersDate.getYear() > 3000) {
-                throw new WrongParamsException("Invalid Player`s birthday");
+        if(player.getBirthday()!=null) {
+            Calendar date = Calendar.getInstance();
+            date.setTime(player.getBirthday());
+            int year = date.get(Calendar.YEAR);
+            if (year < 2000 || year > 3000) {
+                throw new WrongParamsException("Wrong birthday");
             }
         }
     }
