@@ -8,6 +8,9 @@ import com.game.exceptions.PlayerNotFoundException;
 import com.game.exceptions.WrongParamsException;
 import com.game.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 
@@ -30,8 +33,13 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public List<Player> getAllPlayers() {
-        return playerRepository.findAll();
+    public List<Player> getAllPlayers(Specification<Player> specification)
+    {
+        return playerRepository.findAll(specification);
+    }
+
+    public Page<Player> gelAllShips(Specification<Player> specification, Pageable sortedByName) {
+        return playerRepository.findAll(specification, sortedByName);
     }
 
     @Override
@@ -129,4 +137,5 @@ public class PlayerServiceImpl implements PlayerService{
             }
         }
     }
+
 }
